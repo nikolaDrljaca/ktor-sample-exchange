@@ -12,6 +12,28 @@ other back and forth.
 
 Conceptual idea behind project is a *currency exchange.*
 
+## Docker
+To run the project in a docker container, an image must be created first.
+
+Open a terminal and run the following command:
+```
+docker build --tag ktor-sample:debug .
+```
+*Make sure the current directory is the project root*
+
+After the build is finished, run the following command to spin up a container with the image:
+```
+docker run --name ktor-sample -d -p 8080:80 ktor-sample:debug 
+```
+
+To stop the image:
+```
+docker stop ktor-sample
+```
+
+*Note*: As of now, the app is working when started locally, but not working from the docker container.
+This seems to be an issue with port forwarding. Once the issue is solved an update will be posted.
+
 ## Details
 
 The project consits of two modules:
