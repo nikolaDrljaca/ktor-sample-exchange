@@ -6,7 +6,7 @@ plugins {
     application
     kotlin("jvm") version "1.6.21"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.21"
-
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "com.example"
@@ -21,6 +21,14 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+}
+
+tasks {
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
+        }
+    }
 }
 
 dependencies {

@@ -19,24 +19,31 @@ Open a terminal and run the following command:
 ```
 docker build --tag ktor-sample:debug .
 ```
-*Make sure the current directory is the project root*
+*Make sure the current directory is the project root.*
 
 After the build is finished, run the following command to spin up a container with the image:
 ```
-docker run --name ktor-sample -d -p 8080:80 ktor-sample:debug 
+docker run --name ktor-sample -d -p 8080:8080 ktor-sample:debug 
 ```
 
 To stop the image:
 ```
 docker stop ktor-sample
 ```
+-------------
+The same process above can be done for the second module. The only thing that changes is the ports.
+```
+docker run --name ktor-sample-generator -d -p 8081:8081 ktor-sample-generator:debug 
+```
 
-*Note*: As of now, the app is working when started locally, but not working from the docker container.
-This seems to be an issue with port forwarding. Once the issue is solved an update will be posted.
+Do keep in mind the names also changes, but the names can be anything.
+
+Module 1 (ktor-sample) will be running on **localhost:8080**, while module 2 (ktor-sample-generator) will be
+running on **localhost:8081**.
 
 ## Details
 
-The project consits of two modules:
+The project consists of two modules:
 - `ktor-sample` This is the root module
 - `ktor-sample-generator` This is the second module
 
