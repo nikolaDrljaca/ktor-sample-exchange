@@ -32,7 +32,7 @@ fun Application.randomRouting() {
 
             runCatching {
                 val response = client.get(
-                    urlString = "http://172.17.0.2:8080/exchange",
+                    urlString = "http://ktor-sample:8080/exchange",
                     block = {
                         contentType(ContentType.Application.Json)
                         setBody(request)

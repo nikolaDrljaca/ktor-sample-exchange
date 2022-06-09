@@ -41,6 +41,24 @@ Do keep in mind the names also changes, but the names can be anything.
 Module 1 (ktor-sample) will be running on **localhost:8080**, while module 2 (ktor-sample-generator) will be
 running on **localhost:8081**.
 
+### Container Connectivity
+For containers to have the ability to communicate with each other using ports, we can create docker networks and connect
+said containers to the newly made network.
+
+This allows us to know for sure upfront what the url and port of the containers are, since a custom network allows 
+containers running on it to be referenced by name.
+
+This means in the source code we can replace `localhost` with `<container_name>`
+
+- To create a network
+  - `docker network create <network_name>`
+- To assign container to network
+  - `docker network connect <network_name> <container_network>`
+- List all containers connected to a network
+  - `docker inspect <network_name>`
+- List all networks a container is connected to
+  - `docker inspect <container_name>`
+
 ## Details
 
 The project consists of two modules:
