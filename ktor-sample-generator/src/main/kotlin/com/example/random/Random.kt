@@ -10,6 +10,7 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.logging.*
 import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,7 +32,7 @@ fun Application.randomRouting() {
 
             runCatching {
                 val response = client.get(
-                    urlString = "http://localhost:8080/exchange",
+                    urlString = "http://172.17.0.2:8080/exchange",
                     block = {
                         contentType(ContentType.Application.Json)
                         setBody(request)
@@ -48,6 +49,8 @@ fun Application.randomRouting() {
                     )
                 )
             }.onFailure {
+                logger.error(it)
+                logger.info(it.stackTrace.toString())
                 call.respond(
                     status = HttpStatusCode.InternalServerError,
                     message = mapOf(
