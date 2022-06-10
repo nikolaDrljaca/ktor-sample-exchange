@@ -25,6 +25,7 @@ repositories {
 
 tasks {
     shadowJar {
+        minimize()
         manifest {
             attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
         }
