@@ -6,6 +6,44 @@ Sample project to showcase server to server communication.
 
 *More details about Ktor can be found [here](https://ktor.io/docs/welcome.html).*
 
+Ktor is a lightweight `Kotlin` based framework for creating web applications and microservices.
+Main benefits are the relatively small footprint, high modularization and an easy learning curve.
+
+It can be used to create server and client applications, and depending on that and the project requirements
+the application can utilize a number of extensions or modules to provide functionality.
+
+Ex: A project can utilize `Content-Negotiation`, `Routing`, `Serialization` etc.
+
+A general project structure example:
+- `Application.kt` - "main class" file. This is the file that contains the app entry point.
+- `config`
+  - `AppConfig.kt`: (*Optional*) A class that can contain application.properties fields to be used throughout the project
+  Other configuration files can reside here.
+- `di`
+  - Contains dependency injection code. See frameworks [koin](https://insert-koin.io) and [kodein](https://kosi-libs.org/kodein-di)
+  Other options are available, these are the most used.
+- `database`
+  - Contains database related code. Different ORMs are available for different sql and nosql based database systems.
+  - `DatabaseFactory.kt`
+  - `DatabaseFactoryImpl.kt`
+  - `BaseDao.kt`
+- `features`
+  - Here we specify feature based packages. These contain the business value of the application.
+  - Furthermore, each feature can be split into data and domain packages/
+  - `data`
+    - Contains definitions for all data sources. Local or remote. Remote can be message queues from other services or even a REST client.
+    - Here reside the database entity and table classes that describe the schema.
+    - This package exposes interface based `DataSource` classes.
+  - `domain`
+    - Domain contains repository interfaces and implementations, and the repositories combine multiple data sources so that routes
+    have clean access to data. If a certain entity only has one data source the `repo` layer can be skipped.
+    - Also includes any `DTO` based objects and relevant mappers.
+  - `controller`
+    - This package provides extension functions to `Route` class. It exposes our defined routes for the relevant feature.
+    For more info - [Kotlin extension functions](https://kotlinlang.org/docs/extensions.html)
+
+*This project does not reflect the structure as it was intended to be simple.*
+
 This project will only focus on fairly simple implementations to showcase modular server to server communication. The
 general idea here behind the project is to have two applications running on different servers that can pass data to each
 other back and forth.
